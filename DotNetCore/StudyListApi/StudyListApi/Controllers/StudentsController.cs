@@ -17,23 +17,23 @@ namespace StudyListApi.Controllers
         }
 
         [HttpGet("GetAllStudents")]
-        public IActionResult GetAllStudents ()
+        public IActionResult GetAllStudents()
         {
             GetAllStudentsAction getAllStudentsAction = new GetAllStudentsAction(this.StudentRepo);
             getAllStudentsAction.Execute();
             return Ok(getAllStudentsAction.Students);
         }
 
-        [HttpPost("DeleteStudent")]
-        public IActionResult DeleteStudent([FromBody]long StudentId)
+        [HttpPost("DeleteStudent/{StudentId}")]
+        public IActionResult DeleteStudent(long StudentId)
         {
             DeleteStudentAction deleteStudentAction = new DeleteStudentAction(StudentId, this.StudentRepo);
             deleteStudentAction.Execute();
             return Ok();
         }
 
-        [HttpGet("GetStudentInfo")]
-        public IActionResult GetStudentInfo([FromBody]long StudentId)
+        [HttpGet("GetStudentInfo/{StudentId}")]
+        public IActionResult GetStudentInfo(long StudentId)
         {
             GetStudentInfoAction getStudentInfoAction = new GetStudentInfoAction(StudentId, this.StudentRepo);
             getStudentInfoAction.Execute();

@@ -5,7 +5,7 @@ namespace StudyListApi.Business.Student
 {
     public class GetStudentInfoAction : BizActionBase
     {
-        private readonly long StudentId { get; set; }
+        private  long StudentId { get; set; }
 
         public StudentInfo Student { get; set; }
 

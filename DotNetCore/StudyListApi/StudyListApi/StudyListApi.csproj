@@ -5,9 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Business\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Repo\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

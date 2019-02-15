@@ -8,6 +8,12 @@ namespace StudyListApi.Business.Student
 
         private readonly IStudentRepo StudentRepo;
 
+        public DeleteStudentAction(long studentId, IStudentRepo studentRepo)
+        {
+            StudentId = studentId;
+            StudentRepo = studentRepo;
+        }
+
         public override void DoAction()
         {
             this.StudentRepo.DeleteStudent(this.StudentId);

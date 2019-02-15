@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StudyListApi.Data;
+using StudyListApi.Repo;
+using StudyListApi.Repo.InterFace;
 
 namespace StudyListApi
 {
@@ -37,6 +39,9 @@ namespace StudyListApi
 
             services.AddDefaultIdentity<Teacher>()
             .AddEntityFrameworkStores<StudyListDbContext>();
+
+            services.AddTransient<IStudentRepo, StudentRepo>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

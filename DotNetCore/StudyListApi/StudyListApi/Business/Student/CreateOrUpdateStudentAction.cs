@@ -5,7 +5,7 @@ namespace StudyListApi.Business.Student
 {
     public class CreateOrUpdateStudentAction : BizActionBase
     {
-        public StudentInfo StudentInfo;
+        private readonly StudentInfo StudentInfo;
 
         private readonly IStudentRepo StudentRepo;
 

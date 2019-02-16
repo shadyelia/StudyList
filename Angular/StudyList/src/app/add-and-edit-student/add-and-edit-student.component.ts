@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-and-edit-student',
@@ -7,7 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddAndEditStudentComponent implements OnInit {
 
-  constructor() { }
+  studentForm: FormGroup;
+  faculties: any;
+
+  constructor() {
+    this.faculties = [
+      { id: 'steak-0', viewValue: 'Steak' },
+      { id: 'pizza-1', viewValue: 'Pizza' },
+      { id: 'tacos-2', viewValue: 'Tacos' }
+    ];
+    this.studentForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      phone: new FormControl('', Validators.required),
+      faculty: new FormControl('', Validators.required),
+      dateOfBirth: new FormControl('', Validators.required),
+      address: new FormControl(''),
+      imagePath: new FormControl('')
+    });
+  }
 
   ngOnInit() {
   }

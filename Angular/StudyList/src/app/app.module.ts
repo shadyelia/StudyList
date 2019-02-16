@@ -10,6 +10,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from "@angular/router";
 import { CustomMaterialModule } from './material.module'
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { MatSelectModule, MatDatepickerModule, MatInputModule } from '@angular/material'
+
+import {
+  HttpClientModule,
+} from '@angular/common/http';
+
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Home' } },
   { path: 'home', component: HomeComponent, data: { title: 'HomeComponent' } },
@@ -23,6 +31,12 @@ const appRoutes: Routes = [
     AddAndEditStudentComponent
   ],
   imports: [
+    MatInputModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(

@@ -4,20 +4,20 @@ using System.Collections.Generic;
 
 namespace StudyListApi.Business.Student
 {
-    public class GetAllStudentsAction : BizActionBase
+    public class GetAllFacultiesAction : BizActionBase
     {
-        public List<StudentInfo> Students { get; set; }
+        public List<FacultyVM> Faculties { get; set; }
 
         private readonly IStudentRepo StudentRepo;
 
-        public GetAllStudentsAction(IStudentRepo studentRepo)
+        public GetAllFacultiesAction(IStudentRepo studentRepo)
         {
             StudentRepo = studentRepo;
         }
 
         public override void DoAction()
         {
-            this.Students = this.StudentRepo.GetAllStudents();
+            this.Faculties = this.StudentRepo.GetAllFaculties();
         }
 
         public override void DoValidate()

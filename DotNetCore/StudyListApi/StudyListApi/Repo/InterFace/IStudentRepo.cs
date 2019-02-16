@@ -9,8 +9,10 @@ namespace StudyListApi.Repo.InterFace
 
         StudentInfo GetStudentInfo(long id);
 
-        List<StudentInfo> GetAllStudent();
+        List<StudentInfo> GetAllStudents();
 
         void DeleteStudent(long id);
+
+        List<FacultyVM> GetAllFaculties();
     }
 }

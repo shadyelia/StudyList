@@ -1,5 +1,4 @@
-﻿using Entities.Enum;
-using System;
+﻿using System;
 
 namespace Entities.Entites
 {
@@ -18,5 +17,9 @@ namespace Entities.Entites
         public string ImagePath { get; set; }
 
         public Faculty Faculty { get; set; }
+
+        public long FacultyId { get; set; }
+
+        public string FacultyName { get; set; }
     }
 }

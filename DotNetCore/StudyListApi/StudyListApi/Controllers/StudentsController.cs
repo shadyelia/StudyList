@@ -16,6 +16,15 @@ namespace StudyListApi.Controllers
             StudentRepo = studentRepo;
         }
 
+        [HttpGet("GetAllFaulties")]
+        public IActionResult GetAllFaulties()
+        {
+            GetAllFacultiesAction getAllFacultiesAction = new GetAllFacultiesAction(this.StudentRepo);
+            getAllFacultiesAction.Execute();
+            return Ok(getAllFacultiesAction.Faculties);
+        }
+
+
         [HttpGet("GetAllStudents")]
         public IActionResult GetAllStudents()
         {

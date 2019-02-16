@@ -19,6 +19,29 @@ namespace StudyListApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Entities.Entites.Faculty", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreatedAt");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<bool?>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedAt");
+
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Faculty");
+                });
+
             modelBuilder.Entity("Entities.Entites.Student", b =>
                 {
                     b.Property<long>("Id")
@@ -33,7 +56,9 @@ namespace StudyListApi.Migrations
 
                     b.Property<DateTime>("DateOfBirth");
 
-                    b.Property<int>("Faculty");
+                    b.Property<long>("FacultyId");
+
+                    b.Property<string>("FacultyName");
 
                     b.Property<string>("ImagePath");
 
@@ -48,6 +73,8 @@ namespace StudyListApi.Migrations
                     b.Property<string>("Phone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FacultyId");
 
                     b.ToTable("Student");
                 });
@@ -223,6 +250,14 @@ namespace StudyListApi.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("TeacherUserTokens");
+                });
+
+            modelBuilder.Entity("Entities.Entites.Student", b =>
+                {
+                    b.HasOne("Entities.Entites.Faculty", "Faculty")
+                        .WithMany()
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

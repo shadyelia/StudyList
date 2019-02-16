@@ -71,6 +71,9 @@ namespace StudyListApi.Data
 
         public DbSet<Student> Student { get; set; }
 
+        public DbSet<Faculty> Faculty { get; set; }
+
+
 
     }
 }

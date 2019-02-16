@@ -1,5 +1,4 @@
 ﻿using Entities.Entites;
-using Entities.Enum;
 using StudyListApi.Data;
 using StudyListApi.Repo.InterFace;
 using StudyListApi.ViewModels;
@@ -38,7 +37,8 @@ namespace StudyListApi.Repo
             Student StudentToDB = new Student();
             StudentToDB.Address = studentInfo.Address;
             StudentToDB.DateOfBirth = studentInfo.DateOfBirth;
-            StudentToDB.Faculty = Enum.Parse<Faculty>(studentInfo.FacultyName);
+            StudentToDB.FacultyId = studentInfo.FacultyId;
+            StudentToDB.FacultyName = _context.Faculty.Find(studentInfo.FacultyId).Name;
             StudentToDB.ImagePath = studentInfo.ImagePath;
             StudentToDB.Name = studentInfo.Name;
             StudentToDB.Phone = studentInfo.Phone;
@@ -59,12 +59,13 @@ namespace StudyListApi.Repo
             Student StudentToDB = _context.Student.Find(studentInfo.Id);
             StudentToDB.Address = studentInfo.Address;
             StudentToDB.DateOfBirth = studentInfo.DateOfBirth;
-            StudentToDB.Faculty = Enum.Parse<Faculty>(studentInfo.FacultyName);
+            StudentToDB.FacultyId = studentInfo.FacultyId;
+            StudentToDB.FacultyName = _context.Faculty.Find(studentInfo.FacultyId).Name;
             StudentToDB.ImagePath = studentInfo.ImagePath;
             StudentToDB.Name = studentInfo.Name;
             StudentToDB.Phone = studentInfo.Phone;
             StudentToDB.ModifiedAt = DateTime.Now;
-            
+
             return StudentToDB;
 
         }
@@ -77,7 +78,7 @@ namespace StudyListApi.Repo
             _context.SaveChanges();
         }
 
-        public List<StudentInfo> GetAllStudent()
+        public List<StudentInfo> GetAllStudents()
         {
             var Students = _context.Student.Where(Student => Student.IsDeleted != true);
             List<StudentInfo> OutputList = BindStudentsDataForOutput(Students);
@@ -94,7 +95,8 @@ namespace StudyListApi.Repo
 
                 StudentObject.Address = Student.Address;
                 StudentObject.DateOfBirth = Student.DateOfBirth;
-                StudentObject.FacultyName = Student.Faculty.ToString();
+                StudentObject.FacultyId = Student.FacultyId;
+                StudentObject.FacultyName = Student.FacultyName;
                 StudentObject.Id = Student.Id;
                 StudentObject.ImagePath = Student.ImagePath;
                 StudentObject.Name = Student.Name;
@@ -119,12 +121,36 @@ namespace StudyListApi.Repo
 
             StudentObject.Address = Student.Address;
             StudentObject.DateOfBirth = Student.DateOfBirth;
-            StudentObject.FacultyName = Student.Faculty.ToString();
+            StudentObject.FacultyId = Student.FacultyId;
+            StudentObject.FacultyName = Student.FacultyName;
             StudentObject.Id = Student.Id;
             StudentObject.ImagePath = Student.ImagePath;
             StudentObject.Name = Student.Name;
             StudentObject.Phone = Student.Phone;
             return StudentObject;
         }
+
+        public List<FacultyVM> GetAllFaculties()
+        {
+            var Faculties = _context.Faculty.ToList();
+
+            return BindDataForGetAllFaculties(Faculties);
+        }
+
+        private List<FacultyVM> BindDataForGetAllFaculties(List<Faculty> Faculties)
+        {
+            List<FacultyVM> OutputFaculties = new List<FacultyVM>();
+
+            foreach(var Faculty in Faculties)
+            {
+                FacultyVM FacultyObject = new FacultyVM();
+                FacultyObject.Id = Faculty.Id;
+                FacultyObject.Name = Faculty.Name;
+                OutputFaculties.Add(FacultyObject);
+            }
+
+            return OutputFaculties;
+        }
+
     }
 }

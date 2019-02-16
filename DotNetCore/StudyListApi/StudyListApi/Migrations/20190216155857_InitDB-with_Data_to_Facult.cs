@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StudyListApi.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitDBwith_Data_to_Facult : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Student",
+                name: "Faculty",
                 columns: table => new
                 {
                     CreatedAt = table.Column<DateTime>(nullable: true),
@@ -19,17 +19,30 @@ namespace StudyListApi.Migrations
                     IsDeleted = table.Column<bool>(nullable: true),
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    DateOfBirth = table.Column<DateTime>(nullable: false),
-                    Phone = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    ImagePath = table.Column<string>(nullable: true),
-                    Faculty = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Student", x => x.Id);
+                    table.PrimaryKey("PK_Faculty", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Faculty",
+                columns: new[] { "Name" },
+                values: new object[] { "FA" });
+
+            migrationBuilder.InsertData(
+              table: "Faculty",
+              columns: new[] { "Name" },
+              values: new object[] { "FB" });
+
+            migrationBuilder.InsertData(
+              table: "Faculty",
+              columns: new[] { "Name" },
+              values: new object[] { "FC" });
+
+
+
 
             migrationBuilder.CreateTable(
                 name: "Teacher",
@@ -72,6 +85,36 @@ namespace StudyListApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TeacherRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Student",
+                columns: table => new
+                {
+                    CreatedAt = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedAt = table.Column<DateTime>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: true),
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    Phone = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    FacultyId = table.Column<long>(nullable: false),
+                    FacultyName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Student", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Student_Faculty_FacultyId",
+                        column: x => x.FacultyId,
+                        principalTable: "Faculty",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,6 +224,11 @@ namespace StudyListApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Student_FacultyId",
+                table: "Student",
+                column: "FacultyId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "Teacher",
                 column: "NormalizedEmail");
@@ -239,6 +287,9 @@ namespace StudyListApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "TeacherUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Faculty");
 
             migrationBuilder.DropTable(
                 name: "TeacherRoles");

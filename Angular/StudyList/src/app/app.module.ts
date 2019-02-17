@@ -28,7 +28,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Home' } },
   { path: 'home', component: HomeComponent, data: { title: 'HomeComponent' } },
-  { path: 'addAndEditStudent', component: AddAndEditStudentComponent, data: { title: 'Add Student' } },
+  { path: 'addAndEditStudent', component: AddAndEditStudentComponent, data: { title: 'Add Student' }, pathMatch: 'full' },
   { path: 'detailsofstudent', component: StudentDetailsComponent, data: { title: 'Details of Student' }, pathMatch: 'full' }
 
 ]

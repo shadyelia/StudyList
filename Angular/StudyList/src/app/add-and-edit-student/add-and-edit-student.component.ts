@@ -29,12 +29,29 @@ export class AddAndEditStudentComponent implements OnInit {
       address: new FormControl(''),
       imagePath: new FormControl('')
     });
+    this.spinner.show();
+    this.studentsServiceService.getAllFaculties().subscribe(data => {
+      this.faculties = data;
+      let id = localStorage.getItem('studentid');
+      if (id != undefined) {
+        this.studentsServiceService.getStudentInfo(id).subscribe(res => {
+          this.studentForm.patchValue({
+            id: res["id"],
+            name: res["name"],
+            phone: res["phone"],
+            facultyId: res["facultyId"],
+            dateOfBirth: res["dateOfBirth"],
+            address: res["address"],
+            imagePath: res["imagePath"],
+          });
+          this.spinner.hide();
+        })
+      }
+    })
   }
 
   ngOnInit() {
-    this.studentsServiceService.getAllFaculties().subscribe(data => {
-      this.faculties = data;
-    })
+
   }
 
   save() {
@@ -50,6 +67,7 @@ export class AddAndEditStudentComponent implements OnInit {
   }
 
   BindDataForCreate() {
+    this.studentInfo.Id = this.studentForm.get('id').value;
     this.studentInfo.Name = this.studentForm.get('name').value;
     this.studentInfo.Phone = this.studentForm.get('phone').value;
     this.studentInfo.DateOfBirth = this.studentForm.get('dateOfBirth').value;

@@ -39,4 +39,9 @@ export class StudentDetailsComponent implements OnInit {
     })
   }
 
+  edit() {
+    localStorage.setItem('studentid', this.student.id);
+    this._router.navigate(['/addAndEditStudent']);
+  }
+
 }

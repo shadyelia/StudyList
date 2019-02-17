@@ -47,6 +47,9 @@ export class AddAndEditStudentComponent implements OnInit {
           this.spinner.hide();
         })
       }
+      else {
+        this.spinner.hide();
+      }
     })
   }
 

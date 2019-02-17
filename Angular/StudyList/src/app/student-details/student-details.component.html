@@ -1,3 +1,32 @@
-<p>
-  student-details works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <img class="d-block w-100" [src]="student.imagePath">
+      <div>{{student.name}} Details</div>
+    </div>
+    <div class="col-4">
+      <ul>
+        <li>
+          <label>Faculty name : </label>
+          {{student.facultyName}}
+        </li>
+        <li>
+          <label>Phone : </label>
+          {{student.phone}}
+        </li>
+        <li>
+          <label>Date of birth : </label>
+          {{student.dateOfBirth.split("T")[0]}}
+        </li>
+        <li>
+          <label>Address : </label>
+          {{student.address}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-primary" (click)="deleteStudent()" style="margin-top:6px">Delete</button>
+      <button class="btn btn-primary" style="margin-top:6px; margin-left:6px;position: absolute;">Edit</button>
+    </div>
+  </div>
+</div>

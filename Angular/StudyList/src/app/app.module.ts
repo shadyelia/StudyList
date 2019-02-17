@@ -12,25 +12,41 @@ import { CustomMaterialModule } from './material.module'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatSelectModule, MatDatepickerModule, MatInputModule } from '@angular/material'
+import { MatSelectModule, MatDatepickerModule, MatInputModule, MatDialogModule, MatIconModule, MatButtonModule } from '@angular/material'
+
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import {
   HttpClientModule,
 } from '@angular/common/http';
 
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
+
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Home' } },
   { path: 'home', component: HomeComponent, data: { title: 'HomeComponent' } },
-  { path: 'addAndEditStudent', component: AddAndEditStudentComponent, data: { title: 'Add Student' } }]
+  { path: 'addAndEditStudent', component: AddAndEditStudentComponent, data: { title: 'Add Student' } },
+  { path: 'detailsofstudent', component: StudentDetailsComponent, data: { title: 'Details of Student' }, pathMatch: 'full' }
+
+]
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     StudentDetailsComponent,
-    AddAndEditStudentComponent
+    AddAndEditStudentComponent,
+    MatConfirmDialogComponent
   ],
   imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    MDBBootstrapModule.forRoot(),
+    NgxSpinnerModule,
     MatInputModule,
     MatDatepickerModule,
     MatSelectModule,
@@ -38,7 +54,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
-    BrowserAnimationsModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
     RouterModule.forRoot(
       appRoutes,
       { useHash: true }
@@ -46,6 +64,7 @@ const appRoutes: Routes = [
     CustomMaterialModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [MatConfirmDialogComponent]
 })
 export class AppModule { }

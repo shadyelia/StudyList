@@ -42,6 +42,14 @@ namespace StudyListApi
 
             services.AddTransient<IStudentRepo, StudentRepo>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                                  builder => builder.AllowAnyOrigin()
+                                  .AllowAnyHeader()
+                                  .AllowAnyMethod()
+                                  .AllowCredentials());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +64,9 @@ namespace StudyListApi
                 app.UseHsts();
             }
 
-           // app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
+
+            // app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

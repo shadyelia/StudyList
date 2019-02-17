@@ -2,6 +2,7 @@
 using StudyListApi.Business.Student;
 using StudyListApi.Repo.InterFace;
 using StudyListApi.ViewModels;
+using System;
 
 namespace StudyListApi.Controllers
 {
@@ -19,42 +20,81 @@ namespace StudyListApi.Controllers
         [HttpGet("GetAllFaulties")]
         public IActionResult GetAllFaulties()
         {
-            GetAllFacultiesAction getAllFacultiesAction = new GetAllFacultiesAction(this.StudentRepo);
-            getAllFacultiesAction.Execute();
-            return Ok(getAllFacultiesAction.Faculties);
+            try
+            {
+                GetAllFacultiesAction getAllFacultiesAction = new GetAllFacultiesAction(this.StudentRepo);
+                getAllFacultiesAction.Execute();
+                return Ok(getAllFacultiesAction.Faculties);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
         [HttpGet("GetAllStudents")]
         public IActionResult GetAllStudents()
         {
-            GetAllStudentsAction getAllStudentsAction = new GetAllStudentsAction(this.StudentRepo);
-            getAllStudentsAction.Execute();
-            return Ok(getAllStudentsAction.Students);
+            try
+            {
+                GetAllStudentsAction getAllStudentsAction = new GetAllStudentsAction(this.StudentRepo);
+                getAllStudentsAction.Execute();
+                return Ok(getAllStudentsAction.Students);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
 
         [HttpPost("DeleteStudent/{StudentId}")]
         public IActionResult DeleteStudent(long StudentId)
         {
-            DeleteStudentAction deleteStudentAction = new DeleteStudentAction(StudentId, this.StudentRepo);
-            deleteStudentAction.Execute();
-            return Ok();
+            try
+            {
+                DeleteStudentAction deleteStudentAction = new DeleteStudentAction(StudentId, this.StudentRepo);
+                deleteStudentAction.Execute();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            
         }
 
         [HttpGet("GetStudentInfo/{StudentId}")]
         public IActionResult GetStudentInfo(long StudentId)
         {
-            GetStudentInfoAction getStudentInfoAction = new GetStudentInfoAction(StudentId, this.StudentRepo);
-            getStudentInfoAction.Execute();
-            return Ok(getStudentInfoAction.Student);
+            try
+            {
+                GetStudentInfoAction getStudentInfoAction = new GetStudentInfoAction(StudentId, this.StudentRepo);
+                getStudentInfoAction.Execute();
+                return Ok(getStudentInfoAction.Student);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("CreateOrUpdateStudent")]
         public IActionResult CreateOrUpdateStudent([FromBody]StudentInfo StudentInfo)
         {
-            CreateOrUpdateStudentAction createOrUpdateStudentAction = new CreateOrUpdateStudentAction(StudentInfo, this.StudentRepo);
-            createOrUpdateStudentAction.Execute();
-            return Ok();
+            try
+            {
+                CreateOrUpdateStudentAction createOrUpdateStudentAction = new CreateOrUpdateStudentAction(StudentInfo, this.StudentRepo);
+                createOrUpdateStudentAction.Execute();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
     }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsServiceService } from '../students-service.service'
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,13 +11,21 @@ import { StudentsServiceService } from '../students-service.service'
 
 export class HomeComponent implements OnInit {
 
-  constructor(private studentsServiceService: StudentsServiceService) { }
+  students: any;
+
+  constructor(private studentsServiceService: StudentsServiceService, private spinner: NgxSpinnerService, private _router: Router
+  ) { }
 
   ngOnInit() {
-    console.log('s');
+    this.spinner.show();
     this.studentsServiceService.getAllStudnets().subscribe(data => {
-      console.log(data);
+      this.students = data;
+      this.spinner.hide();
     });
   }
 
+  openDetails(id: any) {
+    localStorage.setItem('id', id);
+    this._router.navigate(['/detailsofstudent']);
+  }
 }

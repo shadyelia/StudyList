@@ -20,13 +20,13 @@
 
           <div class="form-group">
             <mat-form-field required>
-              <mat-select placeholder="Faculty" formControlName="faculty">
+              <mat-select placeholder="Faculty" formControlName="facultyId">
                 <mat-option *ngFor="let faculty of faculties" [value]="faculty.id">
-                  {{faculty.viewValue}}
+                  {{faculty.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <div class="error-message" *ngIf="(studentForm.get('faculty').hasError('required') )&& (studentForm.get('faculty').touched)">faculty
+            <div class="error-message" *ngIf="(studentForm.get('facultyId').hasError('required') )&& (studentForm.get('facultyId').touched)">faculty
               is Required</div>
           </div>
 
@@ -37,7 +37,7 @@
               <input matInput [matDatepicker]="picker" placeholder="Choose a date" class="form-control" formControlName="dateOfBirth"
                 required />
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
             </mat-form-field>
 
             <div class="error-message" *ngIf="(studentForm.get('dateOfBirth').hasError('required') )&& (studentForm.get('dateOfBirth').touched)">Date
@@ -51,9 +51,15 @@
               is Required</div>
           </div>
 
+          <div class="form-group">
+            <label>Image Path</label>
+            <input type="text" class="form-control" formControlName="imagePath" required />
+            <div class="error-message" *ngIf="(studentForm.get('imagePath').hasError('required') )&& (studentForm.get('imagePath').touched)">Image
+              Pathis Required</div>
+          </div>
 
           <div class="form-group">
-            <button class="btn btn-primary" type="submit">Save</button>
+            <button class="btn btn-primary" (click)="save()" type="submit">Save</button>
           </div>
         </form>
       </div>

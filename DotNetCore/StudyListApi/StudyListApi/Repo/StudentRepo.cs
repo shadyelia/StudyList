@@ -94,13 +94,13 @@ namespace StudyListApi.Repo
                 StudentInfo StudentObject = new StudentInfo();
 
                 StudentObject.Address = Student.Address;
-                StudentObject.DateOfBirth = Student.DateOfBirth;
                 StudentObject.FacultyId = Student.FacultyId;
                 StudentObject.FacultyName = Student.FacultyName;
                 StudentObject.Id = Student.Id;
                 StudentObject.ImagePath = Student.ImagePath;
                 StudentObject.Name = Student.Name;
                 StudentObject.Phone = Student.Phone;
+                StudentObject.Age = Convert.ToInt32(((DateTime.Now.Date - Student.DateOfBirth.Date).TotalDays) / 365);
 
                 ListOfStudents.Add(StudentObject);
             }
@@ -120,7 +120,7 @@ namespace StudyListApi.Repo
             StudentInfo StudentObject = new StudentInfo();
 
             StudentObject.Address = Student.Address;
-            StudentObject.DateOfBirth = Student.DateOfBirth;
+            StudentObject.DateOfBirth = Student.DateOfBirth.Date;
             StudentObject.FacultyId = Student.FacultyId;
             StudentObject.FacultyName = Student.FacultyName;
             StudentObject.Id = Student.Id;
